@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
-
-:root { font-family: 'DM Sans', Arial, sans-serif; color: #e8e5dc; background: #0b0b0a; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; --ink: #e8e5dc; --muted: #8e8d86; --line: #292a25; --accent: #b8bd58; --page: #0b0b0a; }
+:root { font-family: Arial, Helvetica, sans-serif; color: #e8e5dc; background: #0b0b0a; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; --ink: #e8e5dc; --muted: #8e8d86; --line: #292a25; --accent: #b8bd58; --page: #0b0b0a; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; background: var(--page); }
