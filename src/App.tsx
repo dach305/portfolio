@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { MotionConfig, motion, useMotionValueEvent, useReducedMotion, useScroll, type Variants } from 'framer-motion'
 import './App.css'
+import CursorGlow from './components/CursorGlow'
+import { useCarouselNavigation } from './components/useCarouselNavigation'
 
-type ProjectCategory = 'Short Form Projects' | 'Long Form Projects' | 'Square / Personal Projects'
-type AspectRatio = 'portrait' | 'landscape' | 'square'
+type ProjectCategory = 'Short Form Projects' | 'Square / Personal Projects'
+type AspectRatio = 'portrait' | 'square'
 
 interface Project {
   title: string
@@ -35,7 +37,6 @@ const makeProjects = (category: ProjectCategory, aspectRatio: AspectRatio, count
 
 const projectGroups: ProjectGroup[] = [
   { label: 'A / Vertical edits', title: 'Short Form Projects', note: 'Social edits and concise stories.', aspectRatio: 'portrait', projects: makeProjects('Short Form Projects', 'portrait', 6) },
-  { label: 'B / Narrative edits', title: 'Long Form Projects', note: 'Longer edits shaped around pace and clarity.', aspectRatio: 'landscape', projects: makeProjects('Long Form Projects', 'landscape', 5) },
   { label: 'C / Self-directed', title: 'Square / Personal Projects', note: 'Studies made outside commissioned work.', aspectRatio: 'square', projects: makeProjects('Square / Personal Projects', 'square', 5) },
 ]
 
@@ -129,19 +130,34 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   </motion.article>
 }
 
+function CarouselControl({ direction, title, trackId, onMove }: {
+  direction: -1 | 1
+  title: string
+  trackId: string
+  onMove: (direction: -1 | 1) => void
+}) {
+  return <div className={`carousel-control carousel-control-${direction === -1 ? 'previous' : 'next'}`}>
+    <button type="button" onClick={() => onMove(direction)} aria-label={`${direction === -1 ? 'Previous' : 'Next'} ${title}`} aria-controls={trackId}>
+      <span aria-hidden="true">{direction === -1 ? '<' : '>'}</span>
+    </button>
+  </div>
+}
+
 function ProjectSection({ group, sectionIndex }: { group: ProjectGroup; sectionIndex: number }) {
   const trackRef = useRef<HTMLDivElement>(null)
   const { fadeUp, staggerContainer } = useAnimationVariants()
-  const move = (direction: -1 | 1) => trackRef.current?.scrollBy({ left: trackRef.current.clientWidth * 0.82 * direction, behavior: 'smooth' })
+  const reduceMotion = useReducedMotion()
+  const move = useCarouselNavigation(trackRef, reduceMotion)
 
   return <motion.section className={`project-group group-${group.aspectRatio}`} aria-labelledby={`project-group-${sectionIndex}`} variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewport}>
     <motion.div className="group-heading" variants={fadeUp}>
       <div><p className="group-label">{group.label}</p><h3 id={`project-group-${sectionIndex}`}>{group.title}</h3></div>
       <p className="group-note">{group.note}</p>
-      <div className="carousel-controls" aria-label={`${group.title} carousel controls`}><button type="button" onClick={() => move(-1)} aria-label={`Previous ${group.title}`}>←</button><button type="button" onClick={() => move(1)} aria-label={`Next ${group.title}`}>→</button></div>
     </motion.div>
     <div className="carousel-viewport">
-      <motion.div className="project-track" ref={trackRef} tabIndex={0} aria-label={`${group.title}, horizontally scrollable`} variants={staggerContainer}>{group.projects.map((project, index) => <ProjectCard key={project.title} project={project} index={index} />)}</motion.div>
+      <CarouselControl direction={-1} title={group.title} trackId={`project-track-${sectionIndex}`} onMove={move} />
+      <motion.div className="project-track" id={`project-track-${sectionIndex}`} ref={trackRef} tabIndex={0} aria-label={`${group.title}, horizontally scrollable`} variants={staggerContainer}>{group.projects.map((project, index) => <ProjectCard key={project.title} project={project} index={index} />)}</motion.div>
+      <CarouselControl direction={1} title={group.title} trackId={`project-track-${sectionIndex}`} onMove={move} />
     </div>
   </motion.section>
 }
@@ -177,7 +193,7 @@ function Footer() {
 }
 
 function App() {
-  return <MotionConfig reducedMotion="user"><Header /><main><Hero /><Reel /><ProjectGrid /><About /><Contact /></main><Footer /></MotionConfig>
+  return <MotionConfig reducedMotion="user"><CursorGlow /><Header /><main><Hero /><Reel /><ProjectGrid /><About /><Contact /></main><Footer /></MotionConfig>
 }
 
 export default App

@@ -1,0 +1,44 @@
+:root {
+  --cursor-glow-radius: 240px;
+  --cursor-glow-color: 220 225 195;
+  --cursor-glow-strength: .0572;
+  --card-glow-radius: 160px;
+  --card-glow-strength: .0836;
+}
+
+/* Above content and the fixed navbar, below the grain at z-index 9999. */
+.cursor-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: var(--cursor-glow-visible, 0);
+  background: radial-gradient(circle var(--cursor-glow-radius) at var(--mouse-x, -1000px) var(--mouse-y, -1000px),
+    rgb(var(--cursor-glow-color) / var(--cursor-glow-strength)),
+    rgb(var(--cursor-glow-color) / .0176) 32%,
+    transparent 70%);
+  transition: opacity .45s ease;
+}
+
+/* The existing clipped media surface contains this tighter light field. */
+.media-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: var(--card-glow-visible, 0);
+  background: radial-gradient(circle var(--card-glow-radius) at var(--card-mouse-x, 50%) var(--card-mouse-y, 50%),
+    rgb(var(--cursor-glow-color) / var(--card-glow-strength)),
+    rgb(var(--cursor-glow-color) / .022) 32%,
+    transparent 70%);
+  transition: opacity .1s ease-out;
+}
+
+/* Entry is immediate; only exit fades, at its last known pointer position. */
+.media-placeholder:hover::before { transition: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-glow, .media-placeholder::before { transition: none; }
+}
