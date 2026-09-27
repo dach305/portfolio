@@ -3,6 +3,19 @@ import { MotionConfig, motion, useMotionValueEvent, useReducedMotion, useScroll,
 import './App.css'
 import CursorGlow from './components/CursorGlow'
 import { useCarouselNavigation } from './components/useCarouselNavigation'
+import afterEffectsLogo from './assets/software/adobe-after-effects.svg'
+import premiereProLogo from './assets/software/adobe-premiere.svg'
+import illustratorLogo from './assets/software/adobe-illustrator.svg'
+import blenderLogo from './assets/software/blender.svg'
+import creativeCloudLogo from './assets/software/adobe-creative-cloud.svg'
+
+const softwareTools = [
+  { name: 'After Effects', logo: afterEffectsLogo, silhouette: false },
+  { name: 'Premiere Pro', logo: premiereProLogo, silhouette: false },
+  { name: 'Illustrator', logo: illustratorLogo, silhouette: false },
+  { name: 'Blender', logo: blenderLogo, silhouette: true },
+  { name: 'Creative Cloud', logo: creativeCloudLogo, silhouette: true },
+]
 
 type ProjectCategory = 'Short Form Projects' | 'Square / Personal Projects'
 type AspectRatio = 'portrait' | 'square'
@@ -165,7 +178,7 @@ function ProjectSection({ group, sectionIndex }: { group: ProjectGroup; sectionI
 function ProjectGrid() {
   const { fadeUp, staggerContainer } = useAnimationVariants()
   return <section className="work-section content-shell" id="work" aria-labelledby="work-title">
-    <motion.div className="section-heading" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewport}><motion.p className="eyebrow" variants={fadeUp}>01 / Selected work</motion.p><motion.h2 id="work-title" variants={fadeUp}>Commissioned work and ongoing studies.</motion.h2></motion.div>
+    <motion.div className="section-heading" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewport}><motion.p className="eyebrow" variants={fadeUp}>01 / Selected work</motion.p></motion.div>
     <div className="project-groups">{projectGroups.map((group, index) => <ProjectSection key={group.title} group={group} sectionIndex={index} />)}</div>
   </section>
 }
@@ -177,7 +190,11 @@ function About() {
     <motion.div className="about-content" variants={staggerContainer}>
       <motion.h2 id="about-title" variants={fadeUp}>placeholder</motion.h2>
       <motion.div className="about-copy" variants={fadeUp}><p>Currently a 25 year old freelance video editor with 9 years of experience in Adobe After Effects. Alongside this, an intermediate working knowledge of Illustrator and Blender, primarily using these for 2D and 3D asset creation.</p><p>6 years experience freelancing, working with small content creators and artists on YouTube and Instagram. I also have my own editing page where I’ve built a small following uploading my work.</p><p>This site is a collection of some of the projects I've worked on along the way. I enjoy working closely with clients to create work that's clear, considered, and crafted with intention.</p></motion.div>
-      <motion.div className="about-socials" variants={fadeUp} aria-label="Social links"><a href="#about" aria-label="YouTube"><span aria-hidden="true">▶</span></a><a href="#about" aria-label="Instagram"><span aria-hidden="true">◎</span></a><a href="mailto:hello@example.com" aria-label="Email"><span aria-hidden="true">✉</span></a></motion.div>
+      <motion.ul className="software-tools" variants={fadeUp} aria-label="Software tools">
+        {softwareTools.map(tool => <li key={tool.name}>
+          <img className={`software-icon${tool.silhouette ? ' software-icon-silhouette' : ''}${tool.name === 'After Effects' ? ' software-icon-ae' : ''}${tool.name === 'Creative Cloud' ? ' software-icon-cc' : ''}`} src={tool.logo} alt={tool.name} />
+        </li>)}
+      </motion.ul>
     </motion.div>
   </motion.section>
 }

@@ -3,16 +3,16 @@
 /* One continuous dark-to-light material across the full document.
    The linear field supplies luminance; broad radial washes add uneven light. */
 :root {
-  --page: #141c17;
-  --page-forest: #141c17;
-  --page-olive: #273329;
-  --page-sage: #566650;
-  --page-washed-sage: #9ca990;
+  --page: #101511;
+  --page-forest: #101511;
+  --page-olive: #1d261e;
+  --page-sage: #404c3b;
+  --page-washed-sage: #747e6c;
   --muted: #a5a69a;
   --line: rgb(192 197 175 / 14%);
-  --ambient-sage: rgb(182 194 165 / 19%);
-  --ambient-olive: rgb(205 212 187 / 16%);
-  --ambient-forest: rgb(16 28 20 / 24%);
+  --ambient-sage: rgb(135 144 122 / 19%);
+  --ambient-olive: rgb(153 158 140 / 16%);
+  --ambient-forest: rgb(12 21 16 / 24%);
   --field-sage: ellipse max(75rem, 100vw) 42% at -28% 49%;
   --field-olive: ellipse max(80rem, 110vw) 38% at 115% 95%;
   --field-forest: ellipse max(70rem, 95vw) 34% at 84% 28%;
