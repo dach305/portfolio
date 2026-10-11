@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { MotionConfig, motion, useMotionValueEvent, useReducedMotion, useScroll, type Variants } from 'framer-motion'
 import './App.css'
 import CursorGlow from './components/CursorGlow'
@@ -10,11 +10,11 @@ import blenderLogo from './assets/software/blender.svg'
 import creativeCloudLogo from './assets/software/adobe-creative-cloud.svg'
 
 const softwareTools = [
-  { name: 'After Effects', logo: afterEffectsLogo, silhouette: false },
-  { name: 'Premiere Pro', logo: premiereProLogo, silhouette: false },
-  { name: 'Illustrator', logo: illustratorLogo, silhouette: false },
-  { name: 'Blender', logo: blenderLogo, silhouette: true },
-  { name: 'Creative Cloud', logo: creativeCloudLogo, silhouette: true },
+  { name: 'After Effects', logo: afterEffectsLogo, id: 'ae', ratio: '1' },
+  { name: 'Premiere Pro', logo: premiereProLogo, id: 'pr', ratio: '240 / 234' },
+  { name: 'Illustrator', logo: illustratorLogo, id: 'ai', ratio: '638 / 622.05' },
+  { name: 'Blender', logo: blenderLogo, id: 'blender', ratio: '511.002 / 415.763' },
+  { name: 'Creative Cloud', logo: creativeCloudLogo, id: 'cc', ratio: '24 / 17.694' },
 ]
 
 type ProjectCategory = 'Short Form Projects' | 'Square / Personal Projects'
@@ -135,7 +135,12 @@ function Reel() {
         <p className="reel-tools-label">MADE WITH</p>
         <ul className="software-tools" aria-label="Software tools">
           {softwareTools.map(tool => <li key={tool.name}>
-            <img className={`software-icon${tool.silhouette ? ' software-icon-silhouette' : ''}${tool.name === 'After Effects' ? ' software-icon-ae' : ''}${tool.name === 'Creative Cloud' ? ' software-icon-cc' : ''}`} src={tool.logo} alt={tool.name} />
+            <span
+              className={`software-icon software-icon-${tool.id}`}
+              role="img"
+              aria-label={tool.name}
+              style={{ '--software-logo': `url("${tool.logo}")`, '--software-ratio': tool.ratio } as CSSProperties}
+            />
           </li>)}
         </ul>
       </div>

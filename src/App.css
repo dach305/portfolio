@@ -280,6 +280,8 @@ main {
 }
 
 .reel-tools {
+  --software-logo-color: #b5d899;
+  --software-label-color: #b8c9bb;
   margin-left: auto;
   display: flex;
   flex-wrap: wrap;
@@ -289,10 +291,10 @@ main {
 }
 
 .reel-tools .reel-tools-label {
-  color: var(--accent);
-  font-size: 12px;
+  color: var(--software-label-color);
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: .09em;
+  letter-spacing: .08em;
   line-height: 1.2;
   white-space: nowrap;
 }
@@ -519,7 +521,7 @@ main {
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 14px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -532,26 +534,24 @@ main {
 .software-icon {
   display: block;
   width: auto;
-  height: 22px;
-  object-fit: contain;
-  opacity: .7;
-  filter: grayscale(1) invert(1) sepia(.2) brightness(.92);
+  height: 24px;
+  aspect-ratio: var(--software-ratio);
+  opacity: .9;
+  background-color: var(--software-logo-color);
+  -webkit-mask: var(--software-logo) center / contain no-repeat;
+  mask: var(--software-logo) center / contain no-repeat;
+  mask-mode: alpha;
   transition: opacity .2s ease, transform .2s ease;
 }
 
-.software-icon-ae {
-  height: 23px;
+/* Adobe tiles share a visible height; the wider marks are optically smaller.
+   SVG alpha cutouts reveal the actual page through the Adobe lettering. */
+.software-icon-blender {
+  height: 21px;
 }
 
 .software-icon-cc {
-  height: 20px;
-}
-
-/* Cropped SVG viewBoxes equalize visible height. Invert two-tone Adobe tiles
-   to cream with dark lettering; silhouettes use the same warm cream family. */
-
-.software-icon-silhouette {
-  filter: brightness(0) invert(.9) sepia(.2);
+  height: 18.5px;
 }
 
 .software-icon:hover {
