@@ -129,7 +129,17 @@ function Reel() {
   const { fadeUp, staggerContainer } = useAnimationVariants()
   return <motion.section className="reel content-shell" id="reel" aria-labelledby="reel-title" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewport}>
     <motion.div className="reel-frame media-placeholder" variants={fadeUp}><span className="placeholder-index">Showreel placeholder</span><button className="reel-play" type="button" aria-label="Showreel placeholder"><span>Reel coming soon</span><i aria-hidden="true" /></button><span className="reel-time">16:9</span></motion.div>
-    <motion.div className="reel-meta" variants={fadeUp}><h2 id="reel-title">Reel / 2026</h2><p>Editing · Motion · 3D</p><p className="reel-note">Selected frames and experiments</p></motion.div>
+    <motion.div className="reel-meta" variants={fadeUp}>
+      <h2 id="reel-title">Reel / 2026</h2>
+      <div className="reel-tools">
+        <p className="reel-tools-label">MADE WITH</p>
+        <ul className="software-tools" aria-label="Software tools">
+          {softwareTools.map(tool => <li key={tool.name}>
+            <img className={`software-icon${tool.silhouette ? ' software-icon-silhouette' : ''}${tool.name === 'After Effects' ? ' software-icon-ae' : ''}${tool.name === 'Creative Cloud' ? ' software-icon-cc' : ''}`} src={tool.logo} alt={tool.name} />
+          </li>)}
+        </ul>
+      </div>
+    </motion.div>
   </motion.section>
 }
 
@@ -190,11 +200,6 @@ function About() {
     <motion.div className="about-content" variants={staggerContainer}>
       <motion.h2 id="about-title" variants={fadeUp}>placeholder</motion.h2>
       <motion.div className="about-copy" variants={fadeUp}><p>Currently a 25 year old freelance video editor with 9 years of experience in Adobe After Effects. Alongside this, an intermediate working knowledge of Illustrator and Blender, primarily using these for 2D and 3D asset creation.</p><p>6 years experience freelancing, working with small content creators and artists on YouTube and Instagram. I also have my own editing page where I’ve built a small following uploading my work.</p><p>This site is a collection of some of the projects I've worked on along the way. I enjoy working closely with clients to create work that's clear, considered, and crafted with intention.</p></motion.div>
-      <motion.ul className="software-tools" variants={fadeUp} aria-label="Software tools">
-        {softwareTools.map(tool => <li key={tool.name}>
-          <img className={`software-icon${tool.silhouette ? ' software-icon-silhouette' : ''}${tool.name === 'After Effects' ? ' software-icon-ae' : ''}${tool.name === 'Creative Cloud' ? ' software-icon-cc' : ''}`} src={tool.logo} alt={tool.name} />
-        </li>)}
-      </motion.ul>
     </motion.div>
   </motion.section>
 }

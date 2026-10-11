@@ -253,29 +253,48 @@ main {
 }
 
 .reel-meta {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 13px 3px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 18px 0 0;
   font-size: 12px;
   color: var(--muted);
 }
 
-.reel-meta h2, .reel-meta p {
+.reel-meta h2 {
   margin: 0;
   font-size: inherit;
-}
-
-.reel-meta h2 {
   color: var(--ink);
   font-weight: 700;
+}
+
+.reel-meta p {
+  margin: 0;
+  font-size: inherit;
 }
 
 .reel-meta p {
   font-weight: 400;
 }
 
-.reel-note {
-  text-align: right;
+.reel-tools {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px 16px;
+}
+
+.reel-tools .reel-tools-label {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .09em;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .work-section {
@@ -497,10 +516,12 @@ main {
 
 .software-tools {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 18px;
-  margin: 28px 0 0;
-  padding: 18px 0 0;
+  justify-content: flex-end;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
@@ -523,7 +544,7 @@ main {
 }
 
 .software-icon-cc {
-  height: 18px;
+  height: 20px;
 }
 
 /* Cropped SVG viewBoxes equalize visible height. Invert two-tone Adobe tiles
@@ -535,7 +556,7 @@ main {
 
 .software-icon:hover {
   opacity: 1;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .contact {
@@ -733,14 +754,6 @@ footer a {
 
   .reel-frame {
     border-radius: 16px;
-  }
-
-  .reel-meta {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .reel-note {
-    display: none;
   }
 
   .section-heading {
